@@ -14,7 +14,7 @@
     </style>
 
     <!-- Normal application theme. -->
-    <style name="AppTheme" parent="AppTheme.Base">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="actionBarStyle">@style/JDActionBarStyle</item>
         <item name="drawerArrowStyle">@style/AppTheme.JDDrawerArrowStyle</item>
         <!--actionbar text color-->

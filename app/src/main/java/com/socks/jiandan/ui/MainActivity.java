@@ -1,5 +1,15 @@
 package com.socks.jiandan.ui;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.socks.jiandan.R;
+import com.socks.jiandan.base.BaseActivity;
+import com.socks.jiandan.base.JDApplication;
+import com.socks.jiandan.model.NetWorkEvent;
+import com.socks.jiandan.ui.fragment.FreshNewsFragment;
+import com.socks.jiandan.ui.fragment.MainMenuFragment;
+import com.socks.jiandan.utils.NetWorkUtil;
+import com.socks.jiandan.utils.ShowToast;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,19 +26,11 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.socks.jiandan.R;
-import com.socks.jiandan.base.BaseActivity;
-import com.socks.jiandan.base.JDApplication;
-import com.socks.jiandan.model.NetWorkEvent;
-import com.socks.jiandan.ui.fragment.FreshNewsFragment;
-import com.socks.jiandan.ui.fragment.MainMenuFragment;
-import com.socks.jiandan.utils.NetWorkUtil;
-import com.socks.jiandan.utils.ShowToast;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import de.greenrobot.event.EventBus;
+
+import net.youmi.android.AdManager;
 
 public class MainActivity extends BaseActivity {
 
@@ -47,6 +49,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         initView();
         initData();
     }
@@ -59,8 +62,7 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.app_name,
-                R.string.app_name) {
+        mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.app_name, R.string.app_name) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 invalidateOptionsMenu();
@@ -84,8 +86,7 @@ public class MainActivity extends BaseActivity {
         netStateReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals(
-                        ConnectivityManager.CONNECTIVITY_ACTION)) {
+                if (intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
                     if (NetWorkUtil.isNetWorkConnected(MainActivity.this)) {
                         EventBus.getDefault().post(new NetWorkEvent(NetWorkEvent.AVAILABLE));
                     } else {
@@ -95,8 +96,7 @@ public class MainActivity extends BaseActivity {
             }
         };
 
-        registerReceiver(netStateReceiver, new IntentFilter(
-                ConnectivityManager.CONNECTIVITY_ACTION));
+        registerReceiver(netStateReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
     @Override
@@ -116,30 +116,19 @@ public class MainActivity extends BaseActivity {
         if (event.getType() == NetWorkEvent.UNAVAILABLE) {
 
             if (noNetWorkDialog == null) {
-                noNetWorkDialog = new MaterialDialog.Builder(MainActivity.this)
-                        .title("无网络连接")
-                        .content("去开启网络?")
-                        .positiveText("是")
-                        .backgroundColor(getResources().getColor(JDApplication.COLOR_OF_DIALOG))
-                        .contentColor(JDApplication.COLOR_OF_DIALOG_CONTENT)
-                        .positiveColor(JDApplication.COLOR_OF_DIALOG_CONTENT)
-                        .negativeColor(JDApplication.COLOR_OF_DIALOG_CONTENT)
-                        .titleColor(JDApplication.COLOR_OF_DIALOG_CONTENT)
-                        .negativeText("否")
-                        .callback(new MaterialDialog.ButtonCallback() {
+                noNetWorkDialog = new MaterialDialog.Builder(MainActivity.this).title("无网络连接").content("去开启网络?").positiveText("是")
+                        .backgroundColor(getResources().getColor(JDApplication.COLOR_OF_DIALOG)).contentColor(JDApplication.COLOR_OF_DIALOG_CONTENT)
+                        .positiveColor(JDApplication.COLOR_OF_DIALOG_CONTENT).negativeColor(JDApplication.COLOR_OF_DIALOG_CONTENT)
+                        .titleColor(JDApplication.COLOR_OF_DIALOG_CONTENT).negativeText("否").callback(new MaterialDialog.ButtonCallback() {
                             @Override
                             public void onPositive(MaterialDialog dialog) {
-                                Intent intent = new Intent(
-                                        Settings.ACTION_WIRELESS_SETTINGS);
+                                Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
                                 startActivity(intent);
                             }
 
                             @Override
-                            public void onNegative(MaterialDialog dialog) {
-                            }
-                        })
-                        .cancelable(false)
-                        .build();
+                            public void onNegative(MaterialDialog dialog) {}
+                        }).cancelable(false).build();
             }
             if (!noNetWorkDialog.isShowing()) {
                 noNetWorkDialog.show();
@@ -156,8 +145,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK
-                && event.getAction() == KeyEvent.ACTION_DOWN) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             if ((System.currentTimeMillis() - exitTime) > 2000) {
                 ShowToast.Short("再按一次退出程序");
                 exitTime = System.currentTimeMillis();
