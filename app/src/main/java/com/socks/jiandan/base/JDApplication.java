@@ -1,9 +1,5 @@
 package com.socks.jiandan.base;
 
-import android.app.Application;
-import android.content.Context;
-import android.graphics.Color;
-
 import com.socks.greendao.DaoMaster;
 import com.socks.greendao.DaoSession;
 import com.socks.jiandan.BuildConfig;
@@ -13,6 +9,11 @@ import com.socks.jiandan.utils.StrictModeUtil;
 import com.socks.jiandan.utils.logger.LogLevel;
 import com.socks.jiandan.utils.logger.Logger;
 import com.socks.jiandan.view.imageloader.ImageLoadProxy;
+
+import android.app.Application;
+import android.content.Context;
+import android.graphics.Color;
+
 
 public class JDApplication extends Application {
 

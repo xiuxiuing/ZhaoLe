@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 public class Joke implements Serializable {
 
-    public static final String URL_JOKE = "http://jandan.net/?oxwlxojflwblxbsapi=jandan" +
-            ".get_duan_comments&page=";
+    public static final String URL_JOKE = "http://i.jandan.net/?oxwlxojflwblxbsapi=jandan" + ".get_duan_comments&page=";
 
     private String comment_ID;
     private String comment_post_ID;
@@ -20,11 +19,10 @@ public class Joke implements Serializable {
     private String comment_agent;
     private String vote_positive;
     private String vote_negative;
-    //评论数量，需要单独获取
+    // 评论数量，需要单独获取
     private String comment_counts;
 
-    public Joke() {
-    }
+    public Joke() {}
 
     public static String getRequestUrl(int page) {
         return URL_JOKE + page;

@@ -199,7 +199,7 @@ public class JokeAdapter extends RecyclerView.Adapter<JokeAdapter.JokeViewHolder
             public void onResponse(ArrayList<CommentNumber> response) {
 
                 for (int i = 0; i < jokes.size(); i++) {
-                    jokes.get(i).setComment_counts(response.get(i).getComments() + "");
+                    jokes.get(i).setComment_counts("");
                 }
 
                 if (page == 1) {

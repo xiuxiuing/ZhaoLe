@@ -31,8 +31,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import de.greenrobot.event.EventBus;
 
-import net.youmi.android.normal.banner.BannerManager;
-import net.youmi.android.normal.banner.BannerViewListener;
 
 public class MainActivity extends BaseActivity {
 
@@ -84,23 +82,6 @@ public class MainActivity extends BaseActivity {
         replaceFragment(R.id.frame_container, new FreshNewsFragment());
         replaceFragment(R.id.drawer_container, new MainMenuFragment());
 
-        View bannerView = BannerManager.getInstance(mContext).getBannerView(mContext, new BannerViewListener() {
-            @Override
-            public void onRequestSuccess() {
-
-            }
-
-            @Override
-            public void onSwitchBanner() {
-
-            }
-
-            @Override
-            public void onRequestFailed() {
-
-            }
-        });
-        bannerLayout.addView(bannerView);
     }
 
     @Override
@@ -164,7 +145,6 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(netStateReceiver);
-        BannerManager.getInstance(mContext).onDestroy();
     }
 
     @Override
